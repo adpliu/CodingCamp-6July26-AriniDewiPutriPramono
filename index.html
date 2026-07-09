@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Expanse & Budget Visualizer - Kelola Pengeluaran Harian Anda">
+    <title>Expense & Budget Visualizer</title>
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+     <!-- ===== HEADER ===== -->
+  <header class="app-header">
+    <div class="header-inner">
+      <h1 class="app-title">💸 Budget Visualizer</h1>
+
+      <!-- ===== Dark / Light Mode Toggle ===== -->
+      <button id="themeToggle" class="btn-icon" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+      <!-- ===== TOTAL BALANCE ===== -->
+    <section class="card balance-card" aria-label="Ringkasan saldo">
+      <p class="balance-label">Total Balance</p>
+      <p class="balance-amount" id="totalBalance">Rp 0</p>
+
+      <!-- Warning banner — hidden by default -->
+      <div class="warning-banner" id="warningBanner" role="alert" aria-live="polite" hidden>
+        ⚠️ Expense exceeds the budget limit!
+      </div>
+
+      <!-- ===== BUDGET LIMIT ===== -->
+      <div class="budget-limit-row">
+        <label for="budgetLimit" class="budget-limit-label">Budget Limit (Rp):</label>
+        <input
+          type="number"
+          id="budgetLimit"
+          class="input budget-limit-input"
+          placeholder="Ex: 500000"
+          min="0"
+          aria-label="BUDGET LIMIT"
+        />
+      </div>
+    </section>
+    
+    <!-- ===== PIE CHART ===== -->
+     <section class="card form-card" aria-label="Spending graph per category"
+     <h2 class="section-title">Expense per Category</h2>
+     <div class="chart-wrapper">
+        <canvas id="expenseChart" role="img" aria-label="Expense pie chart"></canvas>
+     </div>
+     <p class="chart-empty" id="chartEmpty">No data displayed yet</p>
+    </section>
+
+    <!-- ===== INPUT FORM ===== -->
+     <section class="card form-card" aria-label="Add transaction"
+     <h2 class="section-title">Add Transaction</h2>
+
+     <form id="transactionForm" novalidate>
+
+    <!-- ===== ITEM NAME ===== -->
+     <div class="form-group">
+        <label for="itemName" class="form-label"
+          Item Name <span class=" required" aria-hidden="true">*</span>
+        </label>
+        <input
+          type="text"
+          id="itemName"
+          class="input"
+          placeholder="Ex: Trading Card"
+          maxlength="80"
+          required
+          aria-required="true"
+        />
+        <span class="field-error" id="itemNameError" role="alert"></span>
+     </div>
+
+    <!-- ===== AMOUNT ===== -->
+     <div class="form-group">
+        <label for="itemAmount" class="form-label"
+        Amount (Rp) <span class="required" aria-hidden="true">*</span>
+        </label>
+
+        <input
+        type="number"
+        id="itemAmount"
+        class="input"
+        placeholder="Ex: 34000"
+        min="1"
+        required
+        aria-required="true"
+        />
+        <span class="field-error" id="itemAmountError" role="alert"></span>
+     </div>
+
+    <!-- =====  CATEGORY ===== -->
+     <div class="form-group">
+          <label for="itemCategory" class="form-label">
+            Category <span class="required" aria-hidden="true">*</span>
+          </label>
+          <div class="select-wrapper">
+            <select id="itemCategory" class="input select" required aria-required="true">
+              <!-- ===== Options rendered by JS ===== -->
+            </select>
+          </div>
+          <span class="field-error" id="itemCategoryError" role="alert"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">+ Add Transaction</button>
+      </form>
+
+      <!-- ===== ADD NEW CATEGORY ===== -->
+      <div class="add-category-section">
+        <h3 class="subsection-title">Add New Category</h3>
+        <div class="add-category-row">
+          <input
+            type="text"
+            id="newCategoryInput"
+            class="input"
+            placeholder="New category name"
+            maxlength="40"
+            aria-label="New category name"
+          />
+          <button id="addCategoryBtn" class="btn btn-secondary">Add</button>
+        </div>
+        <span class="field-error" id="categoryError" role="alert"></span>
+      </div>
+    </section>
+
+    <!-- ===== TRANSACTION LIST ===== -->
+    <section class="card list-card" aria-label="Daftar transaksi">
+      <div class="list-header">
+        <h2 class="section-title">Transaction List</h2>
+        <button id="clearAllBtn" class="btn btn-danger btn-sm" aria-label="Delete all transaction">
+          Delete All
+        </button>
+      </div>
+
+      <!-- ===== SCROLLABLE LIST ===== -->
+      <ul
+        id="transactionList"
+        class="transaction-list"
+        aria-live="polite"
+        aria-label="Daftar item transaksi"
+      >
+    <!-- ===== ITEM RENDERED BY JS ===== -->
+      </ul>
+
+      <p class="list-empty" id="listEmpty">There are no transactions yet. Add above!</p>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>Expense &amp; Budget Visualizer &copy; 2026</p>
+  </footer>
+
+</body>
+</html>
